@@ -12,3 +12,4 @@
 1. 寻找更先进的PDF parser，能够通过html元素例如<h2>等区分section，进行skills, experience更精准的填入
 2. embed AI model，能够更精准的二次检测skills，education的内容是否准确并进行AI去重。
 3. 调查研究看市面上更好的，比如LinkedIn企业级付费API，能够更精准地抓取最新的Job post，与用户的LinkedIn账号绑定，实现更先进的Job Match
+4. 引发我思考的一点是，在我自己投递简历的过程中也会遇到一样的问题，目前市面上的根据简历识别skills自动填入的API大多数都不准确，比如我使用的这个job post企业级API也会出现类似情况。例如用户的目标是Software Engineering，他写自己曾经写过User Account Management System,因为这个短句出现的频率过高，所以API会把"user account”也作为skills的一项。我想出的未来解决办法是，接入AI模型，将用户的Education先给AI让它进行处理，处理之后根据Education的内容以及Description进行Skills的筛选。这样会让自动填入的skills更加合理。
