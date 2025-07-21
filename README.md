@@ -46,6 +46,9 @@ cd skill-match-final
 # Double-click start-all.bat to start everything!
 # OR run in Command Prompt:
 start-all.bat
+
+# Note: You'll be prompted to restore sample database (16MB of job data)
+# Choose 'y' to populate with real job postings and skills for testing
 ```
 
 **Windows (PowerShell):**
@@ -96,6 +99,23 @@ npm run dev
 
 **That's it!** The application will be available at `http://localhost:5173`
 
+### 📊 Database Setup
+
+The repository includes a **16MB database backup** with real job postings and skills for testing:
+
+**Automatic Restoration (Recommended):**
+- When you first run the startup scripts, you'll be prompted to restore sample data
+- Choose 'y' to populate the database with job postings and skills
+
+**Manual Restoration:**
+```bash
+# Linux/macOS
+./restore-data.sh
+
+# Windows
+restore-data.bat
+```
+
 ### Alternative: Step-by-Step Setup
 
 **Linux/macOS:**
@@ -110,11 +130,12 @@ npm run dev
 **Windows:**
 ```cmd
 REM Option 1: Use batch files (Easy)
-start.bat              REM Start backend services
+start.bat              REM Start backend services (includes database prompt)
 start-frontend.bat     REM Start frontend (in new window)
 
 REM Option 2: Manual commands
 docker-compose up -d   REM Start backend services
+restore-data.bat       REM Restore sample database (optional)
 
 REM In a new Command Prompt window:
 cd apps\web-ui
