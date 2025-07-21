@@ -1,7 +1,7 @@
 # Skill Match - Intelligent Job-Skill Alignment Platform
 
 
-## 🚀 Quick Start
+## Quick Start
 
 ### One-Command Setup
 
@@ -26,13 +26,13 @@ cd skill-match
 ./start-frontend.sh
 ```
 
-## 📋 Prerequisites
+## Prerequisites
 
 - **Docker & Docker Compose** (for backend services)
 - **Node.js 18+** (for frontend development)
 - **Git** (for cloning the repository)
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -49,47 +49,47 @@ cd skill-match
 ```
 
 
-### ✅ Requirements Implementation
+### Requirements Implementation
 
 **1. Job Data Aggregation**
-- ✅ **Automated web scraper** with Adzuna API integration
-- ✅ **Daily automated runs** via Docker cron scheduling
-- ✅ **Structured database storage** with PostgreSQL
-- ✅ **Comprehensive parsing** of job titles, descriptions, skills, and locations
-- ✅ **Multi-source support** (Adzuna, with extensible architecture for LinkedIn, Indeed)
+- **Automated web scraper** with Adzuna API integration
+- **Daily automated runs** via Docker cron scheduling
+- **Structured database storage** with PostgreSQL
+-  **Comprehensive parsing** of job titles, descriptions, skills, and locations
+-  **Multi-source support** (Adzuna, with extensible architecture for LinkedIn, Indeed)
 
 **2. Skill Mapping Engine**
-- ✅ **Advanced skill categorization** using EMSI Skills Database (26,000+ skills)
-- ✅ **SkillNER integration** for intelligent skill extraction and mapping
-- ✅ **Technical and soft skill classification** with confidence scoring
-- ✅ **Real-time demand distribution** analysis across roles and industries
+-  **Advanced skill categorization** using EMSI Skills Database (26,000+ skills)
+-  **SkillNER integration** for intelligent skill extraction and mapping
+-  **Technical and soft skill classification** with confidence scoring
+-  **Real-time demand distribution** analysis across roles and industries
 
 **3. User Resume Analysis**
-- ✅ **Multi-format document support** (PDF, DOCX, TXT)
-- ✅ **Intelligent text extraction** with PyMuPDF and python-docx
-- ✅ **Structured data parsing** for experience, education, and skills
-- ✅ **EMSI-powered skill matching** with proficiency level detection
-- ✅ **Dynamic alignment scoring** based on skill overlap and confidence
+-  **Multi-format document support** (PDF, DOCX, TXT)
+-  **Intelligent text extraction** with PyMuPDF and python-docx
+-  **Structured data parsing** for experience, education, and skills
+-  **EMSI-powered skill matching** with proficiency level detection
+-  **Dynamic alignment scoring** based on skill overlap and confidence
 
 **4. Recommendation Engine**
-- ✅ **Multi-algorithm matching** (TF-IDF, cosine similarity, Jaccard index)
-- ✅ **Ranked job recommendations** with comprehensive scoring
-- ✅ **Visual skill gap analysis** with actionable improvement suggestions
-- ✅ **Personalized learning resource recommendations**
+-  **Multi-algorithm matching** (TF-IDF, cosine similarity, Jaccard index)
+-  **Ranked job recommendations** with comprehensive scoring
+-  **Visual skill gap analysis** with actionable improvement suggestions
+-  **Personalized learning resource recommendations**
 
-### 🎁 Bonus Features Implemented
+###  Bonus Features Implemented
 
 **Dashboard & Visualizations**
-- ✅ **Real-time skill demand trends** across industries with interactive charts
-- ✅ **User skill alignment timeline** showing progression over time
-- ✅ **Industry alignment tracking** with historical data
-- ✅ **Market insights dashboard** with comprehensive analytics
+-  **Real-time skill demand trends** across industries with interactive charts
+-  **User skill alignment timeline** showing progression over time
+-  **Industry alignment tracking** with historical data
+-  **Market insights dashboard** with comprehensive analytics
 
 **Advanced NLP & Embeddings**
-- ✅ **SkillNER integration** for semantic skill extraction
-- ✅ **SBERT embeddings** for improved skill matching
-- ✅ **Multi-pass extraction pipeline** with confidence scoring
-- ✅ **Context-aware skill detection** with type classification
+-  **SkillNER integration** for semantic skill extraction
+-  **SBERT embeddings** for improved skill matching
+-  **Multi-pass extraction pipeline** with confidence scoring
+-  **Context-aware skill detection** with type classification
 ### Technology Stack
 
 **Frontend:**
@@ -249,7 +249,7 @@ ADZUNA_APP_KEY=your_app_key
 3. **Growth Prediction:** Historical pattern extrapolation
 4. **Alignment Tracking:** User skill progression monitoring
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -346,22 +346,8 @@ npm install
 **Planned Improvements:**
 1. **Multi-source Integration:** LinkedIn, Indeed, Glassdoor APIs
 2. **Advanced NLP:** GPT integration for semantic understanding
-3. **Real-time Updates:** WebSocket-based live updates
-4. **Mobile Application:** React Native companion app
-5. **Enterprise Features:** Team analytics, bulk processing
 
-## 📄 License
+## License
 
 This project is created for programming assessment purposes.
 
-## 🤝 Support
-
-For issues or questions:
-1. Check the troubleshooting section above
-2. Review logs: `docker-compose logs -f`
-3. Verify configuration in environment files
-4. Ensure all prerequisites are installed
-
----
-
-**🎉 Ready to explore intelligent skill matching? Start with `./start-all.sh` and visit `http://localhost:5173`!**
