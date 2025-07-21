@@ -4,7 +4,7 @@
 ## Quick Start
 
 ### One-Command Setup
-
+---make sure docker is running
 ```bash
 # Clone the repository
 git clone <repository-url>
