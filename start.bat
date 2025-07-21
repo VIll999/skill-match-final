@@ -63,10 +63,14 @@ if exist "database_backup.sql" (
     echo 📊 Sample database found. Do you want to restore it? (y/n^)
     echo    This will populate the database with job postings and skills.
     echo    (You can also run 'restore-data.bat' later^)
+    echo    (If you get errors, use 'clean-and-restore.bat' instead^)
     set /p response="Enter choice: "
     if /i "!response!"=="y" (
         echo 📥 Restoring sample data...
         call restore-data.bat
+        if errorlevel 1 (
+            echo ⚠️  Restore failed with errors. Try 'clean-and-restore.bat' for clean restore.
+        )
     )
 )
 

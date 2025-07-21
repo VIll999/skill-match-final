@@ -114,6 +114,10 @@ The repository includes a **16MB database backup** with real job postings and sk
 
 # Windows
 restore-data.bat
+
+# If you get "multiple primary keys" errors, use clean restore:
+# Linux/macOS: ./clean-and-restore.sh
+# Windows: clean-and-restore.bat
 ```
 
 ### Alternative: Step-by-Step Setup
@@ -383,7 +387,21 @@ docker-compose down -v
 ./start.sh
 ```
 
-**3. Frontend Not Loading**
+**3. Database Restoration Errors (Windows)**
+```cmd
+REM If you get "ERROR: multiple primary keys for table" errors:
+REM This means the database already has schema/data
+
+REM Option 1: Use clean restore script
+clean-and-restore.bat
+
+REM Option 2: Manual clean restore
+docker-compose exec -T db psql -U dev -c "DROP DATABASE IF EXISTS skillmatch;"
+docker-compose exec -T db psql -U dev -c "CREATE DATABASE skillmatch;"
+docker-compose exec -T db psql -U dev -d skillmatch < database_backup.sql
+```
+
+**4. Frontend Not Loading**
 
 *Linux/macOS:*
 ```bash
@@ -407,7 +425,7 @@ Remove-Item -Recurse -Force node_modules
 npm install
 ```
 
-**4. Scraper Not Working**
+**5. Scraper Not Working**
 - Check Adzuna credentials in `secrets/.env.adzuna`
 - Verify API quota limits
 - Check scraper logs: `docker-compose logs scraper`
