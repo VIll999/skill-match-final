@@ -71,12 +71,12 @@ echo "✅ Database is ready!"
 # Check if we should restore sample data
 if [ -f "database_backup.sql" ]; then
     echo "📊 Sample database found. Do you want to restore it? (y/n)"
-    echo "   This will populate the database with job postings and skills."
-    echo "   (You can also run './restore-data.sh' later)"
+    echo "   This will completely reset and populate the database with job postings and skills."
+    echo "   (You can also run './clean-and-restore.sh' later)"
     read -r response
     if [[ "$response" =~ ^[Yy]$ ]]; then
-        echo "📥 Restoring sample data..."
-        ./restore-data.sh
+        echo "📥 Performing clean restore of sample data..."
+        ./clean-and-restore.sh
     fi
 fi
 
