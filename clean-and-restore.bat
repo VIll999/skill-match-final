@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 REM Clean Database and Restore Script for Windows
 REM This script completely resets the database and restores from backup
 
