@@ -1,0 +1,14 @@
+playwright==1.41.1
+beautifulsoup4==4.12.3
+httpx==0.27.0
+python-dateutil==2.8.2
+pydantic==2.11.7
+pydantic-settings==2.2.1
+python-dotenv==1.1.1
+psycopg==3.2.9
+sqlalchemy==2.0.41
+# Additional dependencies for Adzuna daily loader
+requests==2.31.0
+spacy==3.7.2
+skillner==1.0.3
+alembic==1.13.1

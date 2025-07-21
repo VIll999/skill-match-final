@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: skillmatch
+    ports: ["5442:5432"]
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  api:
+    build: ./apps/api
+    environment:
+      DATABASE_URL: postgresql+psycopg://dev:dev@db:5432/skillmatch
+    ports: ["8000:8000"]
+    depends_on: [db]
+    volumes:
+      - ./apps/api/src:/app/src
+
+  scraper:
+    build: ./apps/scraper
+    environment:
+      DATABASE_URL: postgresql+psycopg://dev:dev@db:5432/skillmatch
+      ADZUNA_APP_ID: "26919585"
+      ADZUNA_APP_KEY: "f074f4e377cd49d55a8fc7bd6d4864b9"
+    depends_on: [db]
+    volumes:
+      - scraper-logs:/var/log
+      - ./secrets:/app/secrets:ro
+      - ./apps/api:/app/api:ro
+    # Run daily at 2 AM with Adzuna job loader
+    command: >
+      sh -c "
+        touch /var/log/daily_job_scraper.log &&
+        echo '0 2 * * * cd /app && python src/cron_scraper.py >> /var/log/daily_job_scraper.log 2>&1' | crontab - &&
+        cron && tail -f /var/log/daily_job_scraper.log
+      "
+
+volumes:
+  db-data:
+  scraper-logs:
