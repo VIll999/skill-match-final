@@ -39,8 +39,8 @@ docker-compose stop api
 
 echo.
 echo 🗑️  Dropping and recreating database...
-docker-compose exec -T db psql -U dev -c "DROP DATABASE IF EXISTS skillmatch;"
-docker-compose exec -T db psql -U dev -c "CREATE DATABASE skillmatch;"
+docker-compose exec -T db psql -U dev -d postgres -c "DROP DATABASE IF EXISTS skillmatch;"
+docker-compose exec -T db psql -U dev -d postgres -c "CREATE DATABASE skillmatch;"
 
 echo.
 echo 📥 Restoring database from backup...
