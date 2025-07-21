@@ -45,6 +45,12 @@ echo "📥 Restoring database from backup..."
 docker-compose exec -T db psql -U dev -d skillmatch < database_backup.sql
 
 echo ""
+echo "🔧 Fixing database sequences..."
+docker-compose exec -T db psql -U dev -d skillmatch -c "SELECT setval('skill_alignment_snapshots_id_seq', (SELECT COALESCE(MAX(id), 0) + 1 FROM skill_alignment_snapshots));"
+docker-compose exec -T db psql -U dev -d skillmatch -c "SELECT setval('user_industry_alignment_id_seq', (SELECT COALESCE(MAX(id), 0) + 1 FROM user_industry_alignment));"
+docker-compose exec -T db psql -U dev -d skillmatch -c "SELECT setval('user_skill_history_id_seq', (SELECT COALESCE(MAX(id), 0) + 1 FROM user_skill_history));"
+
+echo ""
 echo "🔄 Restarting API service..."
 docker-compose start api
 
