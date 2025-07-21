@@ -3,21 +3,102 @@
 
 ## Quick Start
 
+### Prerequisites
+
+**Required Software:**
+- **Docker & Docker Compose** (for backend services)
+  - *Windows:* [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+  - *macOS:* [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+  - *Linux:* [Docker Engine](https://docs.docker.com/engine/install/) + [Docker Compose](https://docs.docker.com/compose/install/)
+- **Node.js 18+** (for frontend development)
+  - Download from: [nodejs.org](https://nodejs.org/)
+- **Git** (for cloning the repository)
+  - *Windows:* [Git for Windows](https://gitforwindows.org/)
+  - *macOS/Linux:* Usually pre-installed
+
+**⚠️ Important for Windows Users:**
+- Make sure Docker Desktop is running before starting the application
+- Use PowerShell or Command Prompt as Administrator for best results
+- If using WSL2, ensure it's properly configured with Docker Desktop
+
 ### One-Command Setup
----make sure docker is running
+
+**Linux/macOS:**
 ```bash
+# Make sure Docker is running
+docker --version
+
 # Clone the repository
-git clone <repository-url>
-cd skill-match
+git clone https://github.com/VIll999/skill-match-final.git
+cd skill-match-final
 
 # Start all services (backend + frontend)
 ./start-all.sh
+```
+
+**Windows (Easy Way - Double-click):**
+```cmd
+# Make sure Docker Desktop is running
+# Clone the repository
+git clone https://github.com/VIll999/skill-match-final.git
+cd skill-match-final
+
+# Double-click start-all.bat to start everything!
+# OR run in Command Prompt:
+start-all.bat
+```
+
+**Windows (PowerShell):**
+```powershell
+# Make sure Docker is running
+docker --version
+
+# Clone the repository
+git clone https://github.com/VIll999/skill-match-final.git
+cd skill-match-final
+
+# Start backend services
+docker-compose down --remove-orphans
+docker-compose up -d db
+Start-Sleep 15
+docker-compose up -d api
+Start-Sleep 10
+docker-compose up -d scraper
+
+# Start frontend (in new PowerShell window)
+cd apps/web-ui
+npm install
+npm run dev
+```
+
+**Windows (Command Prompt):**
+```cmd
+REM Make sure Docker is running
+docker --version
+
+REM Clone the repository
+git clone https://github.com/VIll999/skill-match-final.git
+cd skill-match-final
+
+REM Start backend services
+docker-compose down --remove-orphans
+docker-compose up -d db
+timeout /t 15
+docker-compose up -d api
+timeout /t 10
+docker-compose up -d scraper
+
+REM Start frontend (in new Command Prompt window)
+cd apps\web-ui
+npm install
+npm run dev
 ```
 
 **That's it!** The application will be available at `http://localhost:5173`
 
 ### Alternative: Step-by-Step Setup
 
+**Linux/macOS:**
 ```bash
 # 1. Start backend services only
 ./start.sh
@@ -26,11 +107,20 @@ cd skill-match
 ./start-frontend.sh
 ```
 
-## Prerequisites
+**Windows:**
+```cmd
+REM Option 1: Use batch files (Easy)
+start.bat              REM Start backend services
+start-frontend.bat     REM Start frontend (in new window)
 
-- **Docker & Docker Compose** (for backend services)
-- **Node.js 18+** (for frontend development)
-- **Git** (for cloning the repository)
+REM Option 2: Manual commands
+docker-compose up -d   REM Start backend services
+
+REM In a new Command Prompt window:
+cd apps\web-ui
+npm install
+npm run dev
+```
 
 ## Architecture Overview
 
@@ -273,6 +363,8 @@ docker-compose down -v
 ```
 
 **3. Frontend Not Loading**
+
+*Linux/macOS:*
 ```bash
 # Check Node.js version
 node --version  # Should be 18+
@@ -280,6 +372,17 @@ node --version  # Should be 18+
 # Reinstall dependencies
 cd apps/web-ui
 rm -rf node_modules
+npm install
+```
+
+*Windows:*
+```powershell
+# Check Node.js version
+node --version  # Should be 18+
+
+# Reinstall dependencies
+cd apps/web-ui
+Remove-Item -Recurse -Force node_modules
 npm install
 ```
 
