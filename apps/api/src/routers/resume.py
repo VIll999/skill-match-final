@@ -183,10 +183,9 @@ class ResumeProcessingService:
                             INSERT INTO user_skills_emsi 
                             (user_id, emsi_skill_id, skill_name, proficiency_level, confidence, source, resume_id, extraction_method)
                             VALUES (:user_id, :emsi_skill_id, :skill_name, :proficiency, :confidence, :source, :resume_id, :method)
-                            ON CONFLICT (user_id, emsi_skill_id) 
-                            DO UPDATE SET 
-                                confidence = GREATEST(user_skills_emsi.confidence, EXCLUDED.confidence),
-                                resume_id = EXCLUDED.resume_id,
+                            ON DUPLICATE KEY UPDATE 
+                                confidence = GREATEST(confidence, VALUES(confidence)),
+                                resume_id = VALUES(resume_id),
                                 updated_at = CURRENT_TIMESTAMP
                         """), {
                             'user_id': resume.user_id,

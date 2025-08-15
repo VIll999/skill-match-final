@@ -63,8 +63,8 @@ class SkillDemandService:
                 COUNT(DISTINCT je.job_id) as total_postings,
                 1 as source_count,
                 AVG(je.importance) as avg_importance,
-                COUNT(DISTINCT CASE WHEN jp.posted_date >= CURRENT_DATE - INTERVAL '30 days' THEN je.job_id END) as postings_last_30_days,
-                COUNT(DISTINCT CASE WHEN jp.posted_date >= CURRENT_DATE - INTERVAL '7 days' THEN je.job_id END) as postings_last_7_days
+                COUNT(DISTINCT CASE WHEN jp.posted_date >= CURDATE() - INTERVAL 30 DAY THEN je.job_id END) as postings_last_30_days,
+                COUNT(DISTINCT CASE WHEN jp.posted_date >= CURDATE() - INTERVAL 7 DAY THEN je.job_id END) as postings_last_7_days
             FROM job_skills_emsi je
             JOIN emsi_skills es ON je.emsi_skill_id = es.skill_id
             JOIN job_postings jp ON je.job_id = jp.id
@@ -84,9 +84,9 @@ class SkillDemandService:
         
         if days_back:
             if days_back <= 7:
-                conditions.append("jp.posted_date >= CURRENT_DATE - INTERVAL '7 days'")
+                conditions.append("jp.posted_date >= CURDATE() - INTERVAL 7 DAY")
             elif days_back <= 30:
-                conditions.append("jp.posted_date >= CURRENT_DATE - INTERVAL '30 days'")
+                conditions.append("jp.posted_date >= CURDATE() - INTERVAL 30 DAY")
         
         if conditions:
             query += " AND " + " AND ".join(conditions)
@@ -154,16 +154,16 @@ class SkillDemandService:
                     es.skill_id,
                     je.skill_name,
                     es.skill_type,
-                    COUNT(CASE WHEN jp.posted_date >= CURRENT_DATE - INTERVAL '%s days' THEN 1 END) as recent_postings,
-                    COUNT(CASE WHEN jp.posted_date < CURRENT_DATE - INTERVAL '%s days' 
-                          AND jp.posted_date >= CURRENT_DATE - INTERVAL '%s days' THEN 1 END) as older_postings
+                    COUNT(CASE WHEN jp.posted_date >= CURDATE() - INTERVAL %s DAY THEN 1 END) as recent_postings,
+                    COUNT(CASE WHEN jp.posted_date < CURDATE() - INTERVAL %s DAY 
+                          AND jp.posted_date >= CURDATE() - INTERVAL %s DAY THEN 1 END) as older_postings
                 FROM job_skills_emsi je
                 JOIN emsi_skills es ON je.emsi_skill_id = es.skill_id
                 JOIN job_postings jp ON je.job_id = jp.id
                 WHERE jp.is_active = 1
-                AND jp.posted_date >= CURRENT_DATE - INTERVAL '%s days'
+                AND jp.posted_date >= CURDATE() - INTERVAL %s DAY
                 GROUP BY es.skill_id, je.skill_name, es.skill_type
-                HAVING COUNT(CASE WHEN jp.posted_date >= CURRENT_DATE - INTERVAL '%s days' THEN 1 END) > 0
+                HAVING COUNT(CASE WHEN jp.posted_date >= CURDATE() - INTERVAL %s DAY THEN 1 END) > 0
             )
             SELECT 
                 skill_id,
@@ -173,7 +173,7 @@ class SkillDemandService:
                 older_postings,
                 CASE 
                     WHEN older_postings > 0 THEN 
-                        ROUND(((recent_postings::NUMERIC / older_postings) - 1) * 100, 2)
+                        ROUND(((CAST(recent_postings AS DECIMAL) / older_postings) - 1) * 100, 2)
                     ELSE 100.0
                 END as growth_rate
             FROM skill_trends

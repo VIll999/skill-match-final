@@ -398,21 +398,37 @@ function App() {
         style={{ zIndex: 3 }}
       >
         <div className="container-apple py-4">
-          <div className="flex justify-center items-center gap-2">
-            <span className="text-apple-caption text-titanium leading-none">Powered by</span>
-            <motion.a 
-              href="https://www.adzuna.com" 
-              target="_blank" 
-              rel="noreferrer"
+          <div className="flex justify-between items-center">
+            {/* Left side - Career Tracker link */}
+            <motion.a
+              href="/career-tracker"
               whileHover={{ scale: 1.05 }}
-              className="opacity-60 hover:opacity-100 transition-opacity flex items-center"
+              className="text-sm text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2"
             >
-              <img 
-                src="https://www.adzuna.com/img/jobs-by-adzuna.png" 
-                alt="Jobs by Adzuna" 
-                className="h-4"
-              />
+              <Sparkles size={16} />
+              Career Tracker
             </motion.a>
+            
+            {/* Center - Powered by */}
+            <div className="flex justify-center items-center gap-2">
+              <span className="text-apple-caption text-titanium leading-none">Powered by</span>
+              <motion.a 
+                href="https://www.adzuna.com" 
+                target="_blank" 
+                rel="noreferrer"
+                whileHover={{ scale: 1.05 }}
+                className="opacity-60 hover:opacity-100 transition-opacity flex items-center"
+              >
+                <img 
+                  src="https://www.adzuna.com/img/jobs-by-adzuna.png" 
+                  alt="Jobs by Adzuna" 
+                  className="h-4"
+                />
+              </motion.a>
+            </div>
+            
+            {/* Right side - spacer for balance */}
+            <div className="w-24"></div>
           </div>
         </div>
       </motion.footer>

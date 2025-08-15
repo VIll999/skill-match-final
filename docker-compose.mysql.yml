@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./apps/api
+    environment:
+      DATABASE_URL: mysql+pymysql://congtian:DbrWQkCVZu90n9H+112A2A==@database-3.cl7a5hmtnxws.us-east-1.rds.amazonaws.com:3306/resume
+      ADZUNA_APP_ID: "26919585"
+      ADZUNA_APP_KEY: "f074f4e377cd49d55a8fc7bd6d4864b9"
+      ENVIRONMENT: production
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/app
+    restart: unless-stopped
+
+  scraper:
+    build: ./apps/scraper
+    environment:
+      DATABASE_URL: mysql+pymysql://congtian:DbrWQkCVZu90n9H+112A2A==@database-3.cl7a5hmtnxws.us-east-1.rds.amazonaws.com:3306/resume
+    restart: unless-stopped
+    depends_on:
+      - api

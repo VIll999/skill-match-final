@@ -1,0 +1,2 @@
+id,email,full_name,hashed_password,phone,linkedin_url,github_url,is_active,created_at,updated_at
+1,handsome@user.com,Handsome User,NULL,NULL,NULL,NULL,t,2025-07-19 09:56:12.434944+00,NULL

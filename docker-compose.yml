@@ -34,7 +34,7 @@ services:
     command: >
       sh -c "
         touch /var/log/daily_job_scraper.log &&
-        echo '0 2 * * * cd /app && python src/cron_scraper.py >> /var/log/daily_job_scraper.log 2>&1' | crontab - &&
+        echo '0 2 * * * cd /app && /usr/local/bin/python src/cron_scraper.py >> /var/log/daily_job_scraper.log 2>&1' | crontab - &&
         cron && tail -f /var/log/daily_job_scraper.log
       "
 

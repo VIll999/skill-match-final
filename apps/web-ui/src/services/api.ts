@@ -1,5 +1,14 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
+// Helper function to create fetch options with ngrok headers
+const createFetchOptions = (options: RequestInit = {}): RequestInit => {
+  const headers = {
+    'ngrok-skip-browser-warning': 'true',
+    ...options.headers,
+  };
+  return { ...options, headers };
+};
+
 // Types
 export interface ResumeUploadResponse {
   resume_id: number;
@@ -142,7 +151,7 @@ export const uploadResume = async (userId: number, file: File): Promise<ResumeUp
 };
 
 export const getUserSkills = async (userId: number): Promise<UserSkill[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/profile/skills/${userId}`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/profile/skills/${userId}`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch user skills');
@@ -152,7 +161,7 @@ export const getUserSkills = async (userId: number): Promise<UserSkill[]> => {
 };
 
 export const getUserEMSISkills = async (userId: number): Promise<EMSIUserSkill[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/profile/skills/emsi/${userId}`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/profile/skills/emsi/${userId}`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch user EMSI skills');
@@ -246,7 +255,7 @@ export const getJobMatches = async (
   userId: number,
   limit: number = 20
 ): Promise<JobMatch[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/match/${userId}?limit=${limit}`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/match/${userId}?limit=${limit}`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch job matches');
@@ -295,7 +304,7 @@ export const getSkillDemandData = async (
     params.append('job_category', jobCategory);
   }
   
-  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/top-skills?${params}`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/top-skills?${params}`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch skill demand data');
@@ -317,7 +326,7 @@ export const getSkillDemandData = async (
 };
 
 export const getMarketInsights = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/market-insights`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/market-insights`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch market insights');
@@ -332,7 +341,7 @@ export const getTopSkillsByDemand = async (limit: number = 50, category?: string
     params.append('category', category);
   }
   
-  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/top-skills?${params}`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/top-skills?${params}`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch top skills');
@@ -342,7 +351,7 @@ export const getTopSkillsByDemand = async (limit: number = 50, category?: string
 };
 
 export const getSkillCategories = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/market-insights`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/market-insights`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch categories');
@@ -353,7 +362,7 @@ export const getSkillCategories = async () => {
 };
 
 export const getJobCategories = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/job-categories`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/skill-demand/job-categories`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch job categories');
@@ -373,7 +382,8 @@ export const getSkillAlignmentTimeline = async (
   });
   
   const response = await fetch(
-    `${API_BASE_URL}/api/v1/skill-demand/alignment-timeline/${userId}?${params}`
+    `${API_BASE_URL}/api/v1/skill-demand/alignment-timeline/${userId}?${params}`,
+    createFetchOptions()
   );
   
   if (!response.ok) {
@@ -407,7 +417,7 @@ export const getFeatureImportance = async (topN: number = 20) => {
 };
 
 export const getUserProfileSummary = async (userId: number) => {
-  const response = await fetch(`${API_BASE_URL}/api/v1/profile/summary/${userId}`);
+  const response = await fetch(`${API_BASE_URL}/api/v1/profile/summary/${userId}`, createFetchOptions());
   
   if (!response.ok) {
     throw new Error('Failed to fetch profile summary');

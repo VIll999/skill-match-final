@@ -4,7 +4,8 @@ Enhanced models for canonical skill ontology with ESCO integration
 """
 from sqlalchemy import Column, Integer, String, Text, Float, Boolean, DateTime, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy import JSON
+# from sqlalchemy.dialects.postgresql import ARRAY  # Not supported in MySQL
 from sqlalchemy.sql import func
 from ..db.database import Base
 import enum
@@ -117,7 +118,7 @@ class SkillEmbedding(Base):
     
     id = Column(Integer, primary_key=True)
     skill_id = Column(Integer, ForeignKey('skills_v2.id', ondelete='CASCADE'), nullable=False)
-    vector = Column(ARRAY(Float), nullable=False)  # 384-dim vector
+    vector = Column(JSON, nullable=False)  # 384-dim vector stored as JSON array in MySQL
     model_name = Column(String(100), nullable=False, default='all-MiniLM-L6-v2')
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
     

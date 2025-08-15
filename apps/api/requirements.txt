@@ -45,3 +45,5 @@ scikit-learn==1.3.0
 numpy==1.24.3
 ipython==8.25.0
 # pyresparser==1.0.6  # Disabled due to dependency conflicts
+PyMySQL==1.1.0
+mysqlclient==2.2.0
